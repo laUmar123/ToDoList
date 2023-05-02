@@ -103,3 +103,78 @@ nav>h2 {
     height: 2rem;
     width: 2rem;
 }
+
+.project-creation.hide {
+    position: absolute;
+    background-color: white;
+    padding: 0.5rem;
+    height: 10rem;
+    width: 20rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: -100%;
+    bottom: 0;
+    z-index: 6;
+    opacity: 0;
+}
+
+.project-creation {
+    position: absolute;
+    background-color: white;
+    padding: 0.5rem;
+    height: 10rem;
+    width: 20rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    margin: auto auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 6;
+    opacity: 1;
+    transition: opacity 0.2s linear;
+}
+
+.project-creation>img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.project-creation-name {
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#project-name-input,
+#project-rename-input {
+    height: 2.2rem;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.project-creation-form-btns {
+    grid-row: 3;
+    display: flex;
+    gap: 1rem;
+    align-self: end;
+}
+
+.create-btn,
+.cancel-btn,
+.confirm-rename-btn {
+    width: 5rem;
+    height: 2rem;
+    font-size: 1rem;
+}
