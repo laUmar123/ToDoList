@@ -55,3 +55,51 @@ header>img {
 .title>span {
     color: var(--light-mode-green);
 }
+
+nav {
+    background-color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+nav>h2 {
+    font-size: 1.8rem;
+    border-bottom: 3px solid black;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    height: 3rem;
+    padding-left: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.nav-item:hover,
+.add-project:hover,
+.project:hover,
+.rename-project-btn:hover,
+.delete-project-btn:hover {
+    background-color: var(--light-mode-background);
+    cursor: pointer;
+}
+
+.add-project>img,
+.project>img,
+.nav-item>img,
+.project-options {
+    height: 2rem;
+    width: 2rem;
+}
