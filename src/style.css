@@ -178,3 +178,85 @@ nav>h2 {
     height: 2rem;
     font-size: 1rem;
 }
+
+.project {
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    font-size: 1.3rem;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.project-configuration {
+    justify-self: end;
+    cursor: pointer;
+    margin-top: 5px;
+    position: relative;
+}
+
+.rename-project {
+    padding-left: 0.5rem;
+    width: 15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.confirm-rename-btn {
+    width: 4.5rem;
+    padding: 0.3rem;
+}
+
+.project-btns.hide {
+    background-color: white;
+    height: 5rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem;
+    gap: 0.2rem;
+    position: absolute;
+    left: -2000%;
+    opacity: 0;
+}
+
+.project-btns {
+    position: absolute;
+    top: -250%;
+    left: -180%;
+    transition: opacity 0.2s linear;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    z-index: 5;
+    background-color: white;
+    height: 5rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem;
+    gap: 0.2rem;
+    opacity: 1;
+}
+
+.rename-project-btn,
+.delete-project-btn {
+    height: 2.5rem;
+    width: 5rem;
+    border: none;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.add-project {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    justify-content: center;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 2rem;
+    height: 3rem;
+}
