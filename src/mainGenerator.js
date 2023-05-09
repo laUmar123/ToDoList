@@ -1,6 +1,56 @@
 import { generateButton, generateDiv, generateHeading, generateImage, generateParagraph, setAttributes } from "./commonGeneratorFunctions";
 
 /**
+ * This function will be used to generate the entire main part of the page
+ * @returns a DOM element 
+ */
+function generateMain() {
+    const mainContainer = document.createElement('main');
+    const tasksContainer = generateDiv(['tasks']);
+    tasksContainer.append(generateNoTasksImage());
+    mainContainer.append(generateHeading('h2', 'All Tasks', ['list-display-type']), tasksContainer, generateAddTask());
+    return mainContainer;
+};
+
+/**
+ * This function is used to generate the button that will be used to generate create a task
+ * @returns a DOM element
+ */
+function generateAddTask() {
+    const container = generateDiv(['add-task-btn', 'hide']);
+    container.append(generateImage('./../src/assets/add.png', 'a plus icon', ['add-task-btn-icon']), generateParagraph('Add a task', ['add-task-btn-msg']));
+    return container;
+};
+
+/**
+ * This function creates the task element itself, and attaches an input form to the task using the generateTaskFormInput() function
+ * @param {Array} classes this takes an array of classes that we want to add to the div that is generated
+ * @returns a DOM element
+ */
+function generateTaskInput(classes) {
+    const container = generateDiv(['task']);
+    const inputsContainer = generateDiv(classes);
+    inputsContainer.append(generateTaskFormInput('task-title-input', 'Title:', 'input', [['id', 'task-title'], ['type', 'textbox'], ['name', 'task-name'], ['placeholder', 'What is the task title?'], ['maxlength', '20']]), generateTaskFormInput('task-details-input', 'Details:', 'textarea', [['id', 'task-details'], ['name', 'task-details'], ['placeholder', 'e.g. I am going to learn DOM Fundamentals'], ['rows', '3']]), generateTaskFormInput('task-date-input', 'Date:', 'input', [['id', 'task-date'], ['type', 'date'], ['name', 'task-deadline-date']]), generateTaskInputButtons());
+    container.append(inputsContainer);
+    return container
+};
+
+/**
+ * This function generates the task summary part of the task element
+ * @param {Number} taskNumber the number of task
+ * @param {string} taskTitle the task's title
+ * @param {string} taskInformation details about the task
+ * @param {Date} date the date the task needs to be completed by
+ * @param {boolean} isImportant a true or false value depending on whether or not the task is important
+ * @returns a DOM element
+ */
+function generateTask(taskNumber, taskTitle, taskInformation, date, isImportant) {
+    const taskSummary = generateDiv(['task-summary']);
+    taskSummary.append(generateCheckbox(taskNumber), generateTaskDetails(taskTitle, taskInformation), generateTaskModification(date, isImportant));
+    return taskSummary;
+}
+
+/**
  * This generates the form that pops up when the user clicks add task
  * @param {Array} containerClass these are the classes we want to add to the container
  * @param {string} labelText this is the text we want to display as the heading of the form
