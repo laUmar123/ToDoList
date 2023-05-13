@@ -42,7 +42,7 @@ function project(projectName, projectNum, tasks = [], currentTasks = 0) {
 };
 
 /**
- * THis project is used to create a project on screen
+ * This project is used to create a project on screen
  * @param {string} name the name of the project 
  * @returns a DOM element that will be displayed on the screen
  */
