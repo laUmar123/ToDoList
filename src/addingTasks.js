@@ -55,3 +55,57 @@ function createEditTaskBtnFunctionality(e) {
         updateAllProjectsStringified();
     }
 }
+
+/**
+ * If the user is cancelling editting the task, then we hide the edit form, and show the task summary
+ * @param { object } e self generated event object when used on an event listener
+*/
+function cancelEditTaskBtnFunctionality(e) {
+    if (e.target.classList.contains('cancel-edit-task-btn')) {
+        hideTaskInputContainer(e);
+        getParentTask(e).querySelector('.task-summary').classList.remove('hide');
+    }
+}
+
+/**
+ * If the user presses the edit button on a task, we update the buttons on that task to have different functionality from the creating a new task buttons
+ * @param {object} e self generated event object when used on an event listener 
+ */
+function editBtnFunctionality(e) {
+    if (e.target.classList.contains('edit-btn')) {
+        if (getParentTask(e).querySelector('.cancel-task-btn')) getParentTask(e).querySelector('.cancel-task-btn').className = 'cancel-edit-task-btn btn';
+        if (getParentTask(e).querySelector('.create-task-btn')) getParentTask(e).querySelector('.create-task-btn').className = 'create-edit-task-btn btn';
+        getParentTask(e).querySelector('.task-input-container').classList.remove('hide');
+        getParentTask(e).querySelector('.task-summary').classList.add('hide');
+    }
+}
+
+/**
+ * If the user deletes a project, we remove the project and jump reupdate the various nav-items for task display
+ * @param {object} e self generated event object when used on an event listener 
+ */
+function deleteBtnFunctionality(e) {
+    if (e.target.classList.contains('delete-btn')) {
+        getAllTasks().forEach(task => {
+            if (retrieveTaskTitleFromSummary(e) === task.name && retrieveTaskDescriptionFromSummary(e) === task.details && retrieveTaskDateFromSummary(e) === task.date) {
+                findProject(task.projectUnder).removeTask(task);
+            }
+        })
+        removeParentTask(e);
+        if (document.querySelector('.today').classList.contains('active-nav-item')) findAllTasksDueToday();
+        if (document.querySelector('.all-tasks').classList.contains('active-nav-item')) allTasksBtnFunctionality();
+        if (document.querySelector('.next-seven-days').classList.contains('active-nav-item')) findAllTasksDueNextSevenDays();
+        if (document.querySelector('.important').classList.contains('active-nav-item')) importantBtnFunctionality();
+        updateAllProjectsStringified();
+    }
+}
+
+/**
+ * Checks whether or not the user has pressed the important button on the task
+ * @param {object} e self generated event object when used on an event listener 
+ * @returns return a boolean whether or not the important button is active or not
+ */
+function isImgEmptyStar(e) {
+    if (e.target.getAttribute('src') === './../src/assets/empty-star.png') return true;
+    if (e.target.getAttribute('src') === './../src/assets/favourite.png') return false;
+};
