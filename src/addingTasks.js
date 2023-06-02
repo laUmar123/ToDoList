@@ -109,3 +109,61 @@ function isImgEmptyStar(e) {
     if (e.target.getAttribute('src') === './../src/assets/empty-star.png') return true;
     if (e.target.getAttribute('src') === './../src/assets/favourite.png') return false;
 };
+
+/**
+ * Finds the task and updates its isImportant value
+ * @param {object} e self generated event object when used on an event listener 
+ * @param {boolean} isTaskImportant a true or false value on whether or not the task should be important
+ */
+function changeTaskIsImportant(e, isTaskImportant) {
+    getAllTasks().forEach(task => {
+        if (retrieveTaskTitleFromSummary(e) === task.name && retrieveTaskDescriptionFromSummary(e) === task.details && retrieveTaskDateFromSummary(e) === task.date) {
+            task.isImportant = isTaskImportant;
+        };
+    });
+};
+
+/**
+ * If the user presses the important star, we update the star to show important, or if its already important then not important
+ * @param {object} e self generated event object when used on an event listener 
+ */
+function importantTaskBtnFunctionality(e) {
+    if (e.target.classList.contains('favourite')) {
+        if (isImgEmptyStar(e)) {
+            e.target.src = "./../src/assets/favourite.png";
+            changeTaskIsImportant(e, true);
+        } else if (!isImgEmptyStar(e)) {
+            changeTaskIsImportant(e, false);
+            e.target.src = "./../src/assets/empty-star.png";
+            importantBtnFunctionality();
+        }
+        updateAllProjectsStringified();
+    }
+};
+
+/**
+ * Loops through all tasks and finds all the important tasks
+ * @returns an Array of all important tasks
+ */
+function getAllImportantTasks() {
+    return getAllTasks().filter(task => {
+        if (task.isImportant === true) {
+            return task;
+        }
+    });
+};
+
+/**
+ * If the user presses the important nav-item, we print all important tasks onto the screen, and if there are none, we show the no tasks image
+ */
+function importantBtnFunctionality() {
+    if (getAllImportantTasks().length === 0) {
+        document.querySelector('.no-tasks-container').classList.remove('hide');
+        printAllTasks(getAllImportantTasks());
+    }
+    else {
+        printAllTasks(getAllImportantTasks());
+        document.querySelector('.no-tasks-container').classList.add('hide');
+    }
+    updateAllProjectsStringified();
+}; updateAllProjectsStringified
