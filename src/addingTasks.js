@@ -167,3 +167,60 @@ function importantBtnFunctionality() {
     }
     updateAllProjectsStringified();
 }; updateAllProjectsStringified
+
+/**
+ * This function is called whenever we need to create a task, and it takes all the values from the task form, and prints the task on screen, while also making it a Task instance
+ * @param {object} e self generated event object when used on an event listener 
+ */
+function creatingTaskLogic(e) {
+    const taskTitle = retrieveTaskTitleFromInput(e);
+    const taskDescription = retrieveTaskDescriptionFromInput(e);
+    const taskDate = checkIfValidDate(e.target.closest('.task-input-container').querySelector('#task-date').value);
+    hideTaskInputContainer(e);
+    const activeProject = findProject(findActiveProject());
+    activeProject.addToTasks(Task(activeProject.projectName, taskTitle, taskDescription, taskDate, activeProject.getTasks().length, false));
+    removeParentTask(e);
+    printLastTask(activeProject.projectName);
+}
+
+/**
+ * This function is used to create a new task when the user edits a task
+ * @param {object} e self generated event object when used on an event listener 
+ * @param {object} projectUnder the project the task is under 
+ */
+function creatingEditTaskLogic(e, projectUnder) {
+    const taskTitle = retrieveTaskTitleFromInput(e);
+    const taskDescription = retrieveTaskDescriptionFromInput(e);
+    const taskDate = checkIfValidDate(e.target.closest('.task-input-container').querySelector('#task-date').value);
+    hideTaskInputContainer(e);
+    const activeProject = projectUnder;
+    activeProject.addToTasks(Task(activeProject.projectName, taskTitle, taskDescription, taskDate, activeProject.getTasks().length, false));
+    removeParentTask(e);
+    if (document.querySelector('.today').classList.contains('active-nav-item')) findAllTasksDueToday();
+    else printLastTask(activeProject.projectName);
+}
+
+/**
+ * Gets the parent task DOM element
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns the DOM element of the e.target
+ */
+function getParentTask(e) {
+    return e.target.closest('.task');
+}
+
+/**
+ * Deletes the parent task DOM element of e.target
+ * @param {object} e self generated event object when used on an event listener  
+ */
+function removeParentTask(e) {
+    getParentTask(e).remove();
+}
+
+/**
+ * Hides the task input container
+ * @param {object} e self generated event object when used on an event listener  
+ */
+function hideTaskInputContainer(e) {
+    getParentTask(e).querySelector('.task-input-container').classList.toggle('hide');
+}
