@@ -224,3 +224,57 @@ function removeParentTask(e) {
 function hideTaskInputContainer(e) {
     getParentTask(e).querySelector('.task-input-container').classList.toggle('hide');
 }
+
+/**
+ * the value of the title of the task in the input form
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns retrieves the title of the task
+ */
+function retrieveTaskTitleFromInput(e) {
+    return getParentTask(e).querySelector('#task-title').value;
+};
+
+/**
+ * the value of the title of the task in the task summary
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns retrieves the title of the task
+ */
+function retrieveTaskTitleFromSummary(e) {
+    return getParentTask(e).querySelector('.task-name').innerText;
+};
+
+/**
+ * This function retrieves task details from the task summary
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns a string that describes the task
+ */
+function retrieveTaskDescriptionFromSummary(e) {
+    return getParentTask(e).querySelector('.task-information').innerText;
+}
+
+/**
+ * This function retrieves task details from the task input
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns a string that describes the task
+ */
+function retrieveTaskDescriptionFromInput(e) {
+    return getParentTask(e).querySelector('#task-details').value;
+}
+
+/**
+ * This function retrieves the task due date from the task summary
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns a string that shows the due date
+ */
+function retrieveTaskDateFromSummary(e) {
+    return getParentTask(e).querySelector('.complete-date').innerText;
+}
+
+/**
+ * This function retrieves the task due date from the task input
+ * @param {object} e self generated event object when used on an event listener  
+ * @returns a string that shows the due date
+ */
+function retrieveTaskDateFromInput(e) {
+    return getParentTask(e).querySelector('#task-date').value;
+}
