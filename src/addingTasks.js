@@ -57,6 +57,16 @@ function createEditTaskBtnFunctionality(e) {
 }
 
 /**
+ * If the user cancels task creation that task's input fields are removed from the DOM
+ * @param {object} e self generated event object when used on an event listener 
+ */
+function cancelTaskBtnFunctionality(e) {
+    if (e.target.classList.contains('cancel-task-btn')) {
+        removeParentTask(e);
+    }
+}
+
+/**
  * If the user is cancelling editting the task, then we hide the edit form, and show the task summary
  * @param { object } e self generated event object when used on an event listener
 */
