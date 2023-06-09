@@ -278,3 +278,98 @@ function retrieveTaskDateFromSummary(e) {
 function retrieveTaskDateFromInput(e) {
     return getParentTask(e).querySelector('#task-date').value;
 }
+
+//Checks if user entered a valid date and returns and formats the date accordingly
+function checkIfValidDate(date) {
+    if (date === '') return 'No Deadline';
+    return format(new Date(date), 'dd/MM/yyyy');
+};
+
+/**
+ * Finds the current active project
+ * @returns a string that is the name of that project
+ */
+function findActiveProject() {
+    const [active] = Array.from(document.querySelectorAll('.project')).filter(project => {
+        if (project.classList.contains('active-nav-item')) return project;
+    });
+    return active.querySelector('.project-name').innerText;
+};
+
+/**
+ * Finds the project object that has the same name as the argument passed in
+ * @param {string} projectName the name of the project
+ * @returns an object 
+ */
+function findProject(projectName) {
+    const [project] = allProjects.filter(project => {
+        if (project.projectName === projectName) return project;
+    })
+    return project
+};
+
+/**
+ * removes all tasks from the DOM and thus removing it from the screen
+ */
+function deleteAllTasksFromDom() {
+    const tasks = document.querySelectorAll('.task');
+    tasks.forEach(task => task.remove());
+}
+
+/**
+ * This function retrieves the project, and prints all the tasks that are stored under that project
+ * @param {string} projectName the name of the project
+ */
+function printAllTasksFromProject(projectName) {
+    deleteAllTasksFromDom();
+    const project = findProject(projectName);
+    project.getTasks().forEach(task => {
+        loadTask(task);
+    });
+};
+
+/**
+ * This function prints all the tasks in the array
+ * @param {Array} arrOfTasks an array of tasks 
+ */
+function printAllTasks(arrOfTasks) {
+    deleteAllTasksFromDom();
+    arrOfTasks.forEach(task => loadTask(task));
+};
+
+/**
+ * This function prints the last task stored under the project that has been passed
+ * @param {string} projectName the name of the project
+ */
+function printLastTask(projectName) {
+    const project = findProject(projectName);
+    loadTask(project.getTasks().at(-1));
+};
+
+/**
+ * This function retrieves all tasks from every project
+ * @returns an array of every task
+ */
+function getAllTasks() {
+    const allTasks = [];
+    allProjects.forEach(project => {
+        allTasks.push(...project.getTasks());
+    });
+    return allTasks;
+}
+
+/**
+ * This function runs when the user clicks the All Tasks button in the nav, and it prints every task stored in every project
+ */
+function allTasksBtnFunctionality() {
+    if (getAllTasks().length === 0) {
+        document.querySelector('.no-tasks-container').classList.remove('hide');
+        printAllTasks(getAllTasks());
+    } else {
+        printAllTasks(getAllTasks());
+        document.querySelector('.no-tasks-container').classList.add('hide');
+    }
+    updateAllProjectsStringified();
+}
+
+export { importantTaskBtnFunctionality, importantBtnFunctionality, printAllTasks, getAllTasks, addTaskBtnFunctionality, createTaskBtnFunctionality, printAllTasksFromProject, cancelTaskBtnFunctionality, editBtnFunctionality, deleteBtnFunctionality, cancelEditTaskBtnFunctionality, createEditTaskBtnFunctionality, allTasksBtnFunctionality }
